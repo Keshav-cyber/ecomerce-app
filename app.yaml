@@ -1,4 +1,7 @@
-runtime: nodejs16
+runtime: nodejs
+env: flex
+
+
 handlers:
   # Serve all static files with url ending with a file extension
   - url: /(.*\..+)$
