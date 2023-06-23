@@ -14,9 +14,9 @@ const UpdateProduct = () => {
     console.log(location.state)
     const navigate= useNavigate();
     let user = authService.getCurrentUser();
-
+    const url = authService.API_URL
     function updateProduct(){
-        axios.post("https://gclouddemo-384110.uc.r.appspot.com/radmin/"+product.id,
+        axios.post(url+"/radmin/"+product.id,
         {name,price,imageLink,quantity,details},
         { headers: {"Authorization" : `${user.token}`}}
         ).then((res)=>{

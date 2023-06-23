@@ -53,7 +53,7 @@ const Login = () => {
             </div>
 
             <div className="container text-center mt-4">
-                <button type="submit" className="btn btn-primary">Login</button>
+                <button type="submit" className="btn btn-warning">Login</button>
             </div>
            </form>
        </div>

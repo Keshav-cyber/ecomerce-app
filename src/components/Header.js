@@ -1,19 +1,23 @@
 import React from "react";
 import authService from "./auth/authServices";
-import { Link,useNavigate } from "react-router-dom";
-import jwt_decode from 'jwt-decode';
+import { Link, useNavigate } from "react-router-dom";
+import jwt_decode from "jwt-decode";
+import { useSelector } from "react-redux";
+import NavDropdown from "react-bootstrap/NavDropdown";
+import DropdownButton from "react-bootstrap/DropdownButton";
+import SearchBox from "./SearchBox";
 
 const Header = () => {
-
   let userLoggedIn = authService.getCurrentUser();
-  let data = {}
-  if(userLoggedIn){
-    data = jwt_decode(userLoggedIn.token)
+  const cart = useSelector((state) => state.cart);
+  let data = {};
+  if (userLoggedIn) {
+    data = jwt_decode(userLoggedIn.token);
   }
 
   const navigate = useNavigate();
 
-  function handleLogout(e){
+  function handleLogout(e) {
     e.preventDefault();
     authService.logout();
     navigate("/login");
@@ -21,7 +25,7 @@ const Header = () => {
 
   return (
     <div>
-      <nav className="navbar navbar-expand-lg navbar-light bg-light">
+      <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
         <div className="container">
           <button
             className="navbar-toggler"
@@ -34,44 +38,86 @@ const Header = () => {
           >
             <span className="navbar-toggler-icon"></span>
           </button>
-          <Link  className="navbar-brand"  to='/'>Shoping App</Link>
-            
-          
+          <Link className="navbar-brand" to="/">
+            Shoping App
+          </Link>
+
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
+              {/* <li className="nav-item">
               <Link className="nav-link"  to='/'>Products</Link>
+              </li> */}
+
+              <li className="nav-item">
+                <SearchBox/>
               </li>
 
-              {userLoggedIn && data.role==="admin" &&<li className="nav-item">
-                <Link className="nav-link" to='/admin'> Admin Panel </Link>
-              </li>}
-
+              {userLoggedIn && data.role === "admin" && (
+                <li className="nav-item">
+                  <Link className="nav-link" to="/admin">
+                    {" "}
+                    Admin Panel{" "}
+                  </Link>
+                </li>
+              )}
+              {/* 
               <li className="nav-item"><Link  className="nav-link" to='/orders'>Orders</Link>
-              </li>
+              </li> */}
             </ul>
 
-           {!userLoggedIn && <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                 <Link  className="nav-link"  to='/login'>Login</Link>
-                  
-              </li>
-              <li className="nav-item">
-              <Link className="nav-link"   to='/signup'>Signup</Link>
-              </li>
-            </ul>}
+           
+             
+             <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/cart">
+                    Cart
+                    {cart.length && (
+                      <span className="badge bg-danger">
+                        {cart.length && cart.length}
+                      </span>
+                    )}
+                  </Link>
+                </li>
 
-           {userLoggedIn &&  <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
-              <li className="nav-item">
+            {userLoggedIn && 
+              
 
-                <a href="" className="nav-link" >{userLoggedIn.username}</a>
-              </li>
-              <li className="nav-item">
-                <button className="btn btn-link nav-link" onClick={handleLogout}>
-                  logout
-                </button>
-              </li>
-            </ul>}
+                <li className="nav-item">
+                <NavDropdown
+              id="nav-dropdown-dark-example"
+              title={userLoggedIn.username}
+              menuVariant="dark"
+            >
+              <NavDropdown.Item href="/profile">Profile</NavDropdown.Item>
+              <NavDropdown.Item href="/orders">
+                orders
+              </NavDropdown.Item>
+              
+              <NavDropdown.Divider />
+              <NavDropdown.Item onClick={handleLogout}>
+               logout
+              </NavDropdown.Item>
+            </NavDropdown>
+
+                </li>
+                }
+              
+
+              {!userLoggedIn && 
+                <div className="d-flex align-items-center">
+                <li className="nav-item">
+                  <Link className="nav-link" to="/login">
+                    Login
+                  </Link>
+                </li>
+                <li className="nav-item">
+                  <Link className="nav-link" to="/signup">
+                    Signup
+                  </Link>
+                </li>
+                </div>
+            }
+            </ul>
           </div>
         </div>
       </nav>

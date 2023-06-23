@@ -1,13 +1,13 @@
 import axios from "axios";
 
 
-const API_URL = "https://gclouddemo-384110.uc.r.appspot.com/r";
+const API_URL = "https://gclouddemo-384110.uc.r.appspot.com";
 
 const signup = async({name, email, password,mobileNumber}) => {
 
     
   let response = await axios
-    .post(API_URL + "/signup", {
+    .post(API_URL + "/r/signup", {
       email,
       password,
       name,
@@ -24,7 +24,7 @@ const login = async (email, password) => {
     email,password
   }
   const response = await axios
-        .post(API_URL + "/login", {}, {
+        .post(API_URL + "/r/login", {}, {
             params
         });
     if (response.data.token) {
@@ -47,6 +47,7 @@ const authService = {
   login,
   logout,
   getCurrentUser,
+  API_URL
 };
 
 export default authService;

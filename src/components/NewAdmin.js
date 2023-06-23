@@ -32,11 +32,11 @@ const NewAdmin = () => {
   const[showAddProduct,setAddProduct] = useState(false)
 
   let user = authService.getCurrentUser();
-  
+  const url = authService.API_URL
 
   useEffect( () => {
     
-    axios.get("https://gclouddemo-384110.uc.r.appspot.com/radmin/products",{ headers: {"Authorization" : `${user.token}`}})
+    axios.get(url+"/radmin/products",{ headers: {"Authorization" : `${user.token}`}})
        .then((response) => {
         
         dispatch({type:"SET_PRODUCT",payload:response.data})
@@ -58,14 +58,14 @@ function createProduct(name,price,imageLink,quantity,details){
     }
    
      axios.post(
-        "https://gclouddemo-384110.uc.r.appspot.com/radmin/product",newProduct,{ headers: {"Authorization" : `${user.token}`}}
+        url+"/radmin/product",newProduct,{ headers: {"Authorization" : `${user.token}`}}
      ).then((res)=>{
         dispatch({type:"ADD_NEW_PRODUCT",payload:newProduct})
      })
       .catch((err)=>console.log(err));
   }
   function deleteProduct(id){
-    axios.get("https://gclouddemo-384110.uc.r.appspot.com/radmin/delete/"+id,{ headers: {"Authorization" : `${user.token}`}}).then((res)=>{
+    axios.get(url+"/radmin/delete/"+id,{ headers: {"Authorization" : `${user.token}`}}).then((res)=>{
         dispatch({type:"DELETE_PRODUCT",payload:id})
      })
   }

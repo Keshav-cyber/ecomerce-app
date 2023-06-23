@@ -6,13 +6,16 @@ import Header from './components/Header';
 import Login from './components/Login';
 import SignUp from './components/SignUp';
 import Orders from './components/Orders';
-import Admin from './components/Admin';
 import CheckUser from './components/CheckUser';
 import CheckAdmin from './components/CheckAdmin';
 import AddProduct from './components/AddProduct';
 import UpdateProduct from './components/UpdateProduct';
 import ClassComponent from './components/ClassComponent';
 import NewAdmin from './components/NewAdmin';
+import Cart from './components/Cart';
+import Profile from './components/Profile';
+import SearchProducts from './components/SearchProducts';
+import ProductDetails from './components/ProductDetails';
 
 function App() {
   return (
@@ -20,9 +23,13 @@ function App() {
       <Header />
       <Routes>
          <Route path="/" element={<Home />} />
+         <Route path='/cart' element={<Cart />} />
          <Route path='/login' element={<Login />} />
          <Route path='/signup' element={<SignUp />} />
+         <Route path='/profile' element={<Profile/>}></Route>
          <Route path='/newadmin' element={<NewAdmin/>}/>
+         <Route path='/search' element={<SearchProducts/>}></Route>
+         <Route path='/product/:pid' element={<ProductDetails/>}></Route>
          <Route element={<CheckUser />}>
            <Route path='/orders' element={<Orders />} />
          </Route>

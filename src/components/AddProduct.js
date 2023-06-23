@@ -8,15 +8,16 @@ const AddProduct = () => {
 
     const [{name,price,imageLink,quantity,details},setProductDetails] = useState({
       name:"",
-      price:"",
+      price:0,
       imageLink:"",
       quantity:"",
       details:""
     })
 
-
+   
     const navigate = useNavigate();
     let user = authService.getCurrentUser();
+    const url = authService.API_URL;
 
   function createProduct(){
     console.log(name,price,imageLink,quantity,details)
@@ -30,7 +31,7 @@ const AddProduct = () => {
     }
    
      axios.post(
-        "https://gclouddemo-384110.uc.r.appspot.com/product",newProduct,{ headers: {"Authorization" : `${user.token}`}}
+        url+"/product",newProduct,{ headers: {"Authorization" : `${user.token}`}}
      ).then((res)=>{
         console.log(res)
         navigate("/admin");

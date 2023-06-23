@@ -96,7 +96,7 @@ const SignUp = () => {
 
 				<div className="container text-center mt-4">
 					<button type="submit"  name="action"
-						className="btn btn-primary">SignUp</button>
+						className="btn btn-warning">SignUp</button>
 				</div>
 			</form>
 		</div>

@@ -12,7 +12,7 @@ const CheckAdmin = () => {
   let data = jwt_decode(user.token);
   console.log(data)
   
-  if(data.role != "admin"){
+  if(data.role !== "admin"){
     authService.logout();
     return  Navigate("/login")
   }

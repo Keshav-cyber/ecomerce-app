@@ -8,11 +8,11 @@ const ProductLine = ({product,handleDelete}) => {
   let user = authService.getCurrentUser();
   const{id,name,details,imageLink,quantity,price} = product
   let navigate = useNavigate();
-
+  const url = authService.API_URL
 
   function deleteProduct(){
     console.log(id)
-    axios.get("https://gclouddemo-384110.uc.r.appspot.com/radmin/delete/"+id,{ headers: {"Authorization" : `${user.token}`}}).then((res)=>{
+    axios.get(url+"/radmin/delete/"+id,{ headers: {"Authorization" : `${user.token}`}}).then((res)=>{
        window.location.reload();
     })
   }

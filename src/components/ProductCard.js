@@ -2,12 +2,15 @@ import React from 'react'
 import axios from 'axios'
 import authService from './auth/authServices'
 import {  useNavigate } from 'react-router-dom'
+import { useDispatch } from 'react-redux'
 
 const ProductCard = (props) => {
     const {name, price,imageLink,quantity,id} = props.product
 
     let user = authService.getCurrentUser();
     let navigate = useNavigate();
+    const dispatch = useDispatch();
+    
     
     function createOrder(){
        
@@ -16,14 +19,18 @@ const ProductCard = (props) => {
             navigate("/login")
             return;
         }
+        
+        dispatch({type:"CART_ADD_ITEM",payload:{...props.product,qty:1}})
 
-        axios.get("https://gclouddemo-384110.uc.r.appspot.com/rest/create_order/"+id,{ headers: {"Authorization" : `${user.token}`}})
-        .then((res) => navigate("/orders"))
-        .catch(
-            (error) => {console.log(error)}
-        )
+          
 
     }
+
+    function handleProdcutDetails (){
+       navigate("/product/"+id);
+    }
+
+
 
     return (
         <div className="card m-3" style={{width: "25rem"}} >
@@ -36,14 +43,9 @@ const ProductCard = (props) => {
                 price :{price}
                 
             </p>
-           
-            <p className="card-text">
-                Available Quantity :{quantity}
-                
-            </p>
-            <button className="btn btn-primary" onClick={createOrder}
+            <button className="btn btn-warning" onClick={handleProdcutDetails}
             disabled={quantity ? false : true}
-            >Buy Now </button>
+            >More Details </button>
         </div>
     </div>
   )

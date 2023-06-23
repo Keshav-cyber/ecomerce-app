@@ -10,10 +10,10 @@ const Admin = () => {
 
   let user = authService.getCurrentUser();
   const navigate = useNavigate();
-
+  const url = authService.API_URL;
   useEffect( () => {
     console.log(user)
-    axios.get("https://gclouddemo-384110.uc.r.appspot.com/radmin/products",{ headers: {"Authorization" : `${user.token}`}})
+    axios.get(url+"/radmin/products",{ headers: {"Authorization" : `${user.token}`}})
        .then((response) => {
         
         setProducts(response.data)
