@@ -6,12 +6,13 @@ import authService from './auth/authServices';
 const AddProduct = () => {
  
 
-    const [{name,price,imageLink,quantity,details},setProductDetails] = useState({
+    const [{name,price,imageLink,quantity,details,discount},setProductDetails] = useState({
       name:"",
       price:0,
       imageLink:"",
       quantity:"",
-      details:""
+      details:"",
+      discount:0
     })
 
    
@@ -27,7 +28,8 @@ const AddProduct = () => {
         price,
         imageLink,
         quantity,
-        details
+        details,
+        discount
     }
    
      axios.post(
@@ -94,6 +96,14 @@ const AddProduct = () => {
                     onChange={handleOnChange}
                     placeholder="quantity"/> <label for="floatingPassword">Quantity</label>
                     <div id="quantity-error" ></div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" name="discount" class="form-control"
+                     id="discount"
+                     value={discount}
+                    onChange={handleOnChange}
+                    placeholder="quantity"/> <label for="floatingPassword">discount</label>
+                    <div id="discount-error" ></div>
             </div>
             <div class=" text-center">
 

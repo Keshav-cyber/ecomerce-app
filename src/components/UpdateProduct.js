@@ -9,7 +9,7 @@ const UpdateProduct = () => {
     const location = useLocation();
     const product = location.state;
 
-   const [{name,price,imageLink,quantity,details},setUpdateDetails] = useState(product)
+   const [{name,price,imageLink,quantity,details,discount},setUpdateDetails] = useState(product)
     
     console.log(location.state)
     const navigate= useNavigate();
@@ -17,7 +17,7 @@ const UpdateProduct = () => {
     const url = authService.API_URL
     function updateProduct(){
         axios.post(url+"/radmin/"+product.id,
-        {name,price,imageLink,quantity,details},
+        {name,price,imageLink,quantity,details,discount},
         { headers: {"Authorization" : `${user.token}`}}
         ).then((res)=>{
             console.log(res.data)
@@ -81,6 +81,14 @@ const UpdateProduct = () => {
                     onChange={handleOnChange}
                     placeholder="quantity"/> <label for="floatingPassword">Quantity</label>
                     <div id="quantity-error" ></div>
+            </div>
+            <div class="form-floating mb-3">
+                <input type="number" name="discount" class="form-control"
+                     id="discount"
+                     value={discount}
+                    onChange={handleOnChange}
+                    placeholder="quantity"/> <label for="floatingPassword">discount</label>
+                    <div id="discount-error" ></div>
             </div>
             <div class=" text-center">
 

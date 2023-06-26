@@ -45,7 +45,7 @@ const Home = () => {
 
   return (
     <div className="container ">
-      <SortComp handleSort={handleSort}/>
+      <SortComp  handleSort={handleSort}/>
 
       <InfiniteScroll
         dataLength={products.length}

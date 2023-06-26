@@ -1,3 +1,4 @@
+
 import{ cartConstants} from "../constants/cartConstants"
 
 const initialCart =localStorage.getItem("cart") ? JSON.parse(localStorage.getItem('cart')) : []
@@ -23,19 +24,27 @@ export const cartReducer = (state=initialCart,{type,payload})=>{
           return state.filter((product) => product.id !== payload)
 
       case cartConstants.CART_INQTY_ITEM:
-         return state.map((product)=>{
+         const newCart = state.map((product)=>{
             if(product.id === payload){
                 product.qty = product.qty+1;
             }
+            
             return product;
          })
+         localStorage.setItem("cart",JSON.stringify(newCart))
+         return newCart;
       case cartConstants.CART_DEQTY_ITEM :
-          return state.map((product)=>{
+          const updated = state.map((product)=>{
             if(product.id === payload && product.qty >1){
                 product.qty = product.qty-1;
             }
             return product;
          })
+           localStorage.setItem("cart",JSON.stringify(updated))
+          return updated;
+
+
+
        case cartConstants.CART_REMOVE_ITEM :
            return state.filter(product => product.id !== payload) 
 

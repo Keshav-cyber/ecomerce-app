@@ -6,7 +6,7 @@ import { useNavigate } from 'react-router-dom';
 
 const ProductLine = ({product,handleDelete}) => {
   let user = authService.getCurrentUser();
-  const{id,name,details,imageLink,quantity,price} = product
+  const{id,name,details,imageLink,quantity,price,discount} = product
   let navigate = useNavigate();
   const url = authService.API_URL
 
@@ -28,6 +28,7 @@ const ProductLine = ({product,handleDelete}) => {
                 <td>{details}</td>
                 <td>{imageLink}</td>
                 <td>{quantity}</td>
+                <td>{discount}</td>
                 <td>
                  <button onClick={()=>handleDelete(id)} className="btn btn-primary">Delete</button>
                  

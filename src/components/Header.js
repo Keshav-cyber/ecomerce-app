@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import jwt_decode from "jwt-decode";
 import { useSelector } from "react-redux";
 import NavDropdown from "react-bootstrap/NavDropdown";
-import DropdownButton from "react-bootstrap/DropdownButton";
+
 import SearchBox from "./SearchBox";
 
 const Header = () => {
@@ -39,7 +39,7 @@ const Header = () => {
             <span className="navbar-toggler-icon"></span>
           </button>
           <Link className="navbar-brand" to="/">
-            Shoping App
+            Shopping App
           </Link>
 
           <div className="collapse navbar-collapse" id="navbarTogglerDemo03">
@@ -70,7 +70,9 @@ const Header = () => {
              <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                 <li className="nav-item">
                   <Link className="nav-link" to="/cart">
-                    Cart
+                    <i className="bi bi-cart3 big">
+                      
+                    </i>
                     {cart.length && (
                       <span className="badge bg-danger">
                         {cart.length && cart.length}

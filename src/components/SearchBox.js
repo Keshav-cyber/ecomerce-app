@@ -1,6 +1,6 @@
 import React,{useState} from "react";
 import { useDispatch } from "react-redux";
-import { Navigate, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const SearchBox = () => {
 
@@ -10,6 +10,7 @@ const SearchBox = () => {
 
   function handleSearch(){
     dispatch({type:"SET_SEARCH_QUERY",payload:query})
+    setQuery("")
     navigate("/search")
   }
 

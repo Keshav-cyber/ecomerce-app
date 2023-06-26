@@ -5,7 +5,7 @@ import {  useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 
 const ProductCard = (props) => {
-    const {name, price,imageLink,quantity,id} = props.product
+    const {name, price,imageLink,quantity,id,discount} = props.product
 
     let user = authService.getCurrentUser();
     let navigate = useNavigate();
@@ -39,10 +39,11 @@ const ProductCard = (props) => {
             src={imageLink} className="img-fluid" alt="..." />
         <div className="card-body">
             <h5 className="card-title">{name}</h5>
-            <p className="card-text">
-                price :{price}
-                
-            </p>
+            <div className=" d-flex align-items-center">
+           <p className="text fs-4">Price :₹{(price-price*discount/100).toFixed(2)}</p>
+           <p className="fw-light text-decoration-line-through ms-2"> ₹ {price} </p>
+           <p className="text ms-2 " style={{color:"green"}}>{discount}% off</p>
+        </div>
             <button className="btn btn-warning" onClick={handleProdcutDetails}
             disabled={quantity ? false : true}
             >More Details </button>

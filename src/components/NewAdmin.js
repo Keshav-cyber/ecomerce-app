@@ -98,6 +98,7 @@ function createProduct(name,price,imageLink,quantity,details){
             <th scope="col">Details</th>
             <th scope="col">Image</th>
             <th scope="col">Quantity</th>
+            <th scope="col">Discount</th>
           </tr>
         </thead>
         <tbody>
