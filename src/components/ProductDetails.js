@@ -8,7 +8,12 @@ const ProductDetails = () => {
   const { pid } = useParams();
   const [{name, price,imageLink,quantity,id,discount}, setProduct] = useState({});
   const dispatch = useDispatch();
+  const [count ,setCount ]= useState(1);
+  const [buttonClass, setButtonClass] = useState("btn btn-warning mt-2");
+  const [buttonText,setButtonText]= useState("ADD TO CART")
+  const [disabled,setDisable] = useState(false)
   const url = authService.API_URL;
+  
   
   useEffect(() => {
     axios
@@ -18,10 +23,23 @@ const ProductDetails = () => {
   }, []);
 
   function createOrder(){
-      
-    
-    dispatch({type:"CART_ADD_ITEM",payload:{...{name, price,imageLink,quantity,id,discount},qty:1}})
+    setButtonText("ADDED TO CART")
+    setButtonClass("btn btn-danger mt-2");
+    setDisable(true);
+    dispatch({type:"CART_ADD_ITEM",payload:{...{name, price,imageLink,quantity,id,discount},qty:count}})
+
 }
+
+function increaseQuantity() {
+  if(count >= quantity) return ;
+  setCount(count + 1)
+}
+function decreseQuantity() {
+  if(count < 2) return ;
+   setCount(count-1)
+}
+
+
 
 
   return (
@@ -49,12 +67,26 @@ const ProductDetails = () => {
            <p className="fw-light text-decoration-line-through ms-2"> ₹ {price} </p>
            <p className="text ms-2 " style={{color:"green"}}>{discount}% off</p>
         </div>
+        <div class="col d-flex align-items-center px-3">
+                    <button
+                      class="bi bi-dash-circle"
+                      style={{ border: "none", background: "transparent" }}
+                      onClick={() => decreseQuantity()}
+                      disabled={false}
+                    ></button>
+                    <h6 className="m-2 border px-4">{count}</h6>
+                    <button
+                      class="bi bi-plus-circle"
+                      style={{ border: "none", background: "transparent" }}
+                      onClick={() => increaseQuantity()}
+                    ></button>
+                  </div>
         <button
-          className="btn btn-warning"
+          className={buttonClass}
           onClick={createOrder}
-          disabled={quantity ? false : true}
+          disabled={disabled}
         >
-          Add to Cart {" "}
+          {buttonText}
         </button>
       </div>
       </div>
